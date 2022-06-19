@@ -1,19 +1,55 @@
-// Bring React in to build a component.
-import React from 'react';
-// Import from react-dom the ability to create a root render
+import React, { useState, useEffect } from 'react';
+import Map, { Marker, Popup } from 'react-map-gl';
 import { createRoot } from 'react-dom/client';
-// create the root of the app by selection where the app should be mounted in the dom
+import axios from 'axios';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { Room } from '@material-ui/icons';
+
+const config = require('./config');
+
+
 const root = createRoot(document.getElementById('root'));
 
-// creates component in js syntax (hence, no <> allowed, js doesn't know what it means)
-// const App = React.createElement("h1",null,"Hello World");
-// root.render(<App />); -> will NOT render!! root.render(App); -> will
+function App() {
+  const [viewState, setViewState] = useState({
+    latitude: 48.860294,
+    longitude: 2.338629,
+    zoom: 5,
+  });
+  const [showPopup, setShowPopup] = useState(true);
+  const [pins, setPins] = useState([])
 
-class App extends React.Component {
-  render () {
-    return <h1> Hello World</h1>
-  }
-};
-
+  useEffect(() => {
+    axios.get('/pins')
+      .then((res) => setPins(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+  return (
+    <div className="map-div">
+      <Map
+        {...viewState}
+        mapboxAccessToken={config.TOKEN}
+        onMove={(evt) => setViewState(evt.viewState)}
+        mapStyle="mapbox://styles/mapbox/outdoors-v11"
+      >
+        <Marker longitude={2.338629} latitude={48.860294} offsetLeft={-20} offsetTop={-10}>
+          <Room style={{ fontSize: viewState.zoom * 7, color: 'slateblue' }} />
+        </Marker>
+        <Popup
+          longitude={2.338629}
+          latitude={48.860294}
+          anchor="left" >
+            <div className="card">
+              <label>Place</label>
+              <label>Review</label>
+              <label>Rating</label>
+              <label>Information</label>
+            </div>
+        </Popup>
+      </Map>
+    </div>
+  );
+}
+export default App;
 // render the root element with the provided component
 root.render(<App />);
