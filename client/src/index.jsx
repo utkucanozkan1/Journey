@@ -27,8 +27,10 @@ function App() {
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
   const [rating, setRating] = useState(0);
-  const [showRegister , setShowRegister] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [logged, setLogged] = useState(false);
+  const [notLogged, setNotLogged] = useState(false);
 
   useEffect(() => {
     const getPins = async () => {
@@ -42,6 +44,14 @@ function App() {
     getPins();
   }, [currentPlaceId]);
 
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('/api/pins');
+      setPins(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleMarkerClick = (id, event, lat, long) => {
     event.stopPropagation();
     setCurrentPlaceId(id);
@@ -63,22 +73,41 @@ function App() {
   const handleLogoutClick = (e) => {
     e.preventDefault();
     setCurrentUser(null);
+    setLogged(false);
+    setNotLogged(true);
+  };
+  const handleDeleteClick = (event, username, title) => {
+    event.preventDefault();
+    if (logged && currentUser === username) {
+      axios.put('api/pins/', { username, title })
+        .then((res) => fetchData())
+        .catch((err) => console.log(err));
+    } else {
+      setNotLogged(true);
+      setTimeout(() => {
+        setNotLogged(false);
+      }, 3000);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newLoc = {
-      username: currentUser,
-      title,
-      desc,
-      rating,
-      lat: newPin.lat,
-      long: newPin.lng,
-    };
-    axios.post('/api/pins', newLoc)
-      .then((res) => setPins([...pins, res.data]))
-      .then(() => setNewPin(null))
-      .catch((err) => console.log(err));
+    if (logged) {
+      const newLoc = {
+        username: currentUser,
+        title,
+        desc,
+        rating,
+        lat: newPin.lat,
+        long: newPin.lng,
+      };
+      axios.post('/api/pins', newLoc)
+        .then((res) => setPins([...pins, res.data]))
+        .then(() => setNewPin(null))
+        .catch((err) => console.log(err));
+    } else {
+      setNotLogged(true);
+    }
   };
   return (
     <div className="map-div">
@@ -91,16 +120,14 @@ function App() {
       >
         {pins.map((p) => (
           <>
-            <Marker key={p._id} longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
+            <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
               <Room
-                key={p._id}
                 style={{ fontSize: viewState.zoom * 7, color: p.username === currentUser ? 'crimson' : 'gray', cursor: 'pointer' }}
                 onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
               />
             </Marker>
             {p._id === currentPlaceId ? (
               <Popup
-                key={p._id}
                 longitude={p.long}
                 latitude={p.lat}
                 anchor="left"
@@ -121,6 +148,17 @@ function App() {
                     <b>{p.username}</b>
                   </span>
                   <span className="date">{moment(p.createdAt).format('MMM Do YY')}</span>
+                  <button
+                    type="button"
+                    className="deleteBtn"
+                    onClick={(e) => handleDeleteClick(e, p.username, p.title)}
+                  >
+                    {' '}
+                    Delete pin
+                    {' '}
+
+                  </button>
+                  {notLogged && <span className="notLogged">Login as the owner of this Pin!</span>}
                 </div>
               </Popup>
             ) : null}
@@ -155,13 +193,14 @@ function App() {
                 <option value="5">5</option>
               </select>
               <button className="submitButton" type="submit">Add Pin</button>
+              {notLogged && <span className="notLogged">You are not logged in!</span>}
             </form>
           </div>
         </Popup>
         )}
       </Map>
       {showRegister && <Register setShowRegister={setShowRegister} />}
-      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} />}
+      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} />}
       {currentUser ? (<button type="button" className="button logout" onClick={(e) => handleLogoutClick(e)}>Logout</button>) : (
         <div className="buttons">
           <button type="button" className="button login" onClick={() => setShowLogin(true)}>Login</button>

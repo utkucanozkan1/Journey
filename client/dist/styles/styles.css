@@ -61,6 +61,12 @@ input::placeholder, textarea::placeholder{
   color: rgb(145, 98, 117);
 }
 
+.notLogged{
+  color: red;
+  font-size: 17px;
+  font-weight: 700;
+}
+
 .submitButton{
   border: none;
   padding: 5px;
