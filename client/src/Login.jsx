@@ -1,0 +1,53 @@
+import React, { useState, useRef } from "react";
+import { Room, Cancel } from "@material-ui/icons";
+import axios from "axios";
+
+export default function Login({ setShowLogin, setCurrentUser }) {
+  const [success, setSuccess] = useState(false);
+	const [fail, setFail] = useState(false);
+	const nameRef = useRef();
+	const passwordRef = useRef();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const user = {
+		  username: nameRef.current.value,
+		  password: passwordRef.current.value,
+		};
+		axios.post('/api/users/login', user)
+		  .then((res) => {
+		    setCurrentUser(res.data.username);
+        setSuccess(true);
+        setFail(false);
+        setTimeout(() => {
+          setShowLogin(false);
+        }, 1300);
+		  })
+      .catch((err) => {
+        setFail(true);
+      })
+	};
+
+	return (
+		<div className="loginContainer">
+			<div className="logo">
+				<Room />
+				Journey
+			</div>
+			<form onSubmit={(e) => handleSubmit(e)}>
+				<input type="text" placeholder="username" ref={nameRef} />
+				<input type="password" placeholder="password" ref={passwordRef} />
+				<button
+					type="button"
+					className="loginBtn"
+					onClick={(e) => handleSubmit(e)}
+				>
+					Login
+				</button>
+        {success && <span className="success"> Success! </span>}
+				{fail && <span className="failure"> Wrong Username or Password! </span>}
+			</form>
+			<Cancel className="loginCancel" onClick={() => setShowLogin(false)} />
+		</div>
+	);
+}

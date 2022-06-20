@@ -7,6 +7,7 @@ import moment from 'moment';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Room, Star } from '@material-ui/icons';
 import Register from './Register';
+import Login from './Login';
 
 const config = require('./config');
 
@@ -26,6 +27,8 @@ function App() {
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
   const [rating, setRating] = useState(0);
+  const [showRegister , setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     const getPins = async () => {
@@ -57,6 +60,11 @@ function App() {
     });
   };
 
+  const handleLogoutClick = (e) => {
+    e.preventDefault();
+    setCurrentUser(null);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newLoc = {
@@ -83,14 +91,16 @@ function App() {
       >
         {pins.map((p) => (
           <>
-            <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
+            <Marker key={p._id} longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
               <Room
+                key={p._id}
                 style={{ fontSize: viewState.zoom * 7, color: p.username === currentUser ? 'crimson' : 'gray', cursor: 'pointer' }}
                 onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
               />
             </Marker>
             {p._id === currentPlaceId ? (
               <Popup
+                key={p._id}
                 longitude={p.long}
                 latitude={p.lat}
                 anchor="left"
@@ -150,11 +160,12 @@ function App() {
         </Popup>
         )}
       </Map>
-      <Register />
-      {currentUser ? (<button type="button" className="button logout">Logout</button>) : (
+      {showRegister && <Register setShowRegister={setShowRegister} />}
+      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} />}
+      {currentUser ? (<button type="button" className="button logout" onClick={(e) => handleLogoutClick(e)}>Logout</button>) : (
         <div className="buttons">
-          <button type="button" className="button login">Login</button>
-          <button type="button" className="button register">Register</button>
+          <button type="button" className="button login" onClick={() => setShowLogin(true)}>Login</button>
+          <button type="button" className="button register" onClick={() => setShowRegister(true)}>Register</button>
         </div>
       )}
     </div>

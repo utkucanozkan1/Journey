@@ -84,10 +84,15 @@ input::placeholder, textarea::placeholder{
 
 .login{
   background-color: darkgreen;
+  font-size: 17px;
+  padding: 5px;
+  margin-right: 10px;
 }
 
 .register{
-  background-color: slateblue;
+  background-color: rgb(87, 192, 241);
+  font-size: 17px;
+  padding: 5px;
 }
 
 .buttons,.logout{
@@ -95,7 +100,7 @@ input::placeholder, textarea::placeholder{
   top: 10px;
   right: 10px;
 }
-
+/* REGISTER Styling  */
 .registerContainer{
   width: 300px;
   height: 250px;
@@ -113,7 +118,92 @@ input::placeholder, textarea::placeholder{
   justify-content: space-between;
 }
 
-.santa{
-  width:4em;
-  height: 3em;
+.logo{
+ color: rgb(87, 192, 241);
+ display: flex;
+ align-items: center;
+ font-weight: 700;
+}
+
+.registerBtn{
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(87, 192, 241);
+  cursor: pointer;
+}
+
+.success {
+  color: green;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.failure {
+  color: red;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.registerCancel{
+  position: absolute;
+  top:5px;
+  right: 5px;
+  background-color: white;
+  color: red;
+  cursor: pointer;
+}
+
+/* LOGIN Styling  */
+.loginContainer{
+  width: 300px;
+  height: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 40vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo{
+ color: rgb(87, 192, 241);
+ display: flex;
+ align-items: center;
+ font-weight: 700;
+}
+
+.loginBtn{
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: darkgreen;
+  cursor: pointer;
+}
+
+
+.failure {
+  color: red;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.loginCancel{
+  position: absolute;
+  top:5px;
+  right: 5px;
+  background-color: white;
+  color: red;
+  cursor: pointer;
 }
