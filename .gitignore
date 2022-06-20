@@ -80,7 +80,8 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+bundle.js
+vendors-node_modules_mapbox-gl_dist_mapbox-gl_js.bundle.js
 
 # Gatsby files
 .cache/
