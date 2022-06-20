@@ -6,6 +6,7 @@ import axios from 'axios';
 import moment from 'moment';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Room, Star } from '@material-ui/icons';
+import Register from './Register';
 
 const config = require('./config');
 
@@ -17,7 +18,7 @@ function App() {
     longitude: 2.338629,
     zoom: 5,
   });
-  const currentUser = 'Utku';
+  const [currentUser, setCurrentUser] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPin, setNewPin] = useState(null);
@@ -63,8 +64,8 @@ function App() {
       title,
       desc,
       rating,
-      lat:newPin.lat,
-      long:newPin.lng,
+      lat: newPin.lat,
+      long: newPin.lng,
     };
     axios.post('/api/pins', newLoc)
       .then((res) => setPins([...pins, res.data]))
@@ -123,7 +124,7 @@ function App() {
           onClose={() => setNewPin(null)}
         >
           <div>
-            <form onSubmit={(e)=>handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <label>Place</label>
               <input
                 placeholder="Enter Place Name"
@@ -149,6 +150,13 @@ function App() {
         </Popup>
         )}
       </Map>
+      <Register />
+      {currentUser ? (<button type="button" className="button logout">Logout</button>) : (
+        <div className="buttons">
+          <button type="button" className="button login">Login</button>
+          <button type="button" className="button register">Register</button>
+        </div>
+      )}
     </div>
   );
 }
