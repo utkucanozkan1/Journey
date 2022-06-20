@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Room, Cancel } from '@material-ui/icons';
 import axios from 'axios';
 
-export default function Login({ setShowLogin, setCurrentUser , setLogged, setNotLogged }) {
+export default function Login({ setShowLogin, setCurrentUser , setLogged, setNotLogged, pins, setUserPins }) {
   const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false);
   const nameRef = useRef();
@@ -17,6 +17,13 @@ export default function Login({ setShowLogin, setCurrentUser , setLogged, setNot
     axios.post('/api/users/login', user)
       .then((res) => {
         setCurrentUser(res.data.username);
+        const upins = pins.filter((p) => {
+          if (user.username === p.username) {
+            return p;
+          }
+        });
+        console.log(upins);
+        setUserPins([...upins]);
         setSuccess(true);
         setFail(false);
         setLogged(true);

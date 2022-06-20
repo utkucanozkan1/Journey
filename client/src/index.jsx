@@ -24,6 +24,7 @@ function App() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPin, setNewPin] = useState(null);
   const [pins, setPins] = useState([]);
+  const [userPins, setUserPins] = useState([]);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
   const [rating, setRating] = useState(0);
@@ -118,7 +119,52 @@ function App() {
         mapStyle="mapbox://styles/mapbox/outdoors-v11"
         onDblClick={handleAddClick}
       >
-        {pins.map((p) => (
+        {logged ? userPins.map((p) => (
+          <>
+            <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
+              <Room
+                style={{ fontSize: viewState.zoom * 7, color: p.username === currentUser ? 'crimson' : 'gray', cursor: 'pointer' }}
+                onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
+              />
+            </Marker>
+            {p._id === currentPlaceId ? (
+              <Popup
+                longitude={p.long}
+                latitude={p.lat}
+                anchor="left"
+                onClose={() => setCurrentPlaceId(null)}
+              >
+                <div className="card">
+                  <label>Place</label>
+                  <h4 className="place">{p.title}</h4>
+                  <label>Review</label>
+                  <p className="desc">{p.desc}</p>
+                  <label>Rating</label>
+                  <div className="stars">
+                    {Array(p.rating).fill(<Star className="star" />)}
+                  </div>
+                  <label>Information</label>
+                  <span className="username">
+                    Created by&nbsp;
+                    <b>{p.username}</b>
+                  </span>
+                  <span className="date">{moment(p.createdAt).format('MMM Do YY')}</span>
+                  <button
+                    type="button"
+                    className="deleteBtn"
+                    onClick={(e) => handleDeleteClick(e, p.username, p.title)}
+                  >
+                    {' '}
+                    Delete pin
+                    {' '}
+
+                  </button>
+                  {notLogged && <span className="notLogged">Login as the owner of this Pin!</span>}
+                </div>
+              </Popup>
+            ) : null}
+          </>
+        )) : pins.map((p) => (
           <>
             <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
               <Room
@@ -200,7 +246,7 @@ function App() {
         )}
       </Map>
       {showRegister && <Register setShowRegister={setShowRegister} />}
-      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} />}
+      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} pins={pins} setUserPins={setUserPins} />}
       {currentUser ? (<button type="button" className="button logout" onClick={(e) => handleLogoutClick(e)}>Logout</button>) : (
         <div className="buttons">
           <button type="button" className="button login" onClick={() => setShowLogin(true)}>Login</button>
