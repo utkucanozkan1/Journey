@@ -75,11 +75,18 @@ function App() {
     e.preventDefault();
     setCurrentUser(null);
     setLogged(false);
-    setNotLogged(true);
+    setNotLogged(false);
+    setUserPins([]);
   };
   const handleDeleteClick = (event, username, title) => {
     event.preventDefault();
     if (logged && currentUser === username) {
+      const upins = userPins.filter((p) => {
+        if (title !== p.title) {
+          return p;
+        }
+      });
+      setUserPins([...upins]);
       axios.put('api/pins/', { username, title })
         .then((res) => fetchData())
         .catch((err) => console.log(err));
@@ -103,7 +110,10 @@ function App() {
         long: newPin.lng,
       };
       axios.post('/api/pins', newLoc)
-        .then((res) => setPins([...pins, res.data]))
+        .then((res) => {
+          setPins([...pins, res.data]);
+          setUserPins([...userPins, res.data]);
+        })
         .then(() => setNewPin(null))
         .catch((err) => console.log(err));
     } else {
@@ -159,7 +169,7 @@ function App() {
                     {' '}
 
                   </button>
-                  {notLogged && <span className="notLogged">Login as the owner of this Pin!</span>}
+                  {notLogged && <span className="notLogged">Login as the owner of this Pin to Delete!</span>}
                 </div>
               </Popup>
             ) : null}
@@ -204,7 +214,7 @@ function App() {
                     {' '}
 
                   </button>
-                  {notLogged && <span className="notLogged">Login as the owner of this Pin!</span>}
+                  {notLogged && <span className="notLogged">Login as the owner of this Pin to Delete!</span>}
                 </div>
               </Popup>
             ) : null}
