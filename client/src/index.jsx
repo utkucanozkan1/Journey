@@ -28,6 +28,7 @@ function App() {
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
   const [rating, setRating] = useState(0);
+  const [visited, setVisited] = useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [logged, setLogged] = useState(false);
@@ -108,6 +109,7 @@ function App() {
         rating,
         lat: newPin.lat,
         long: newPin.lng,
+        visited,
       };
       axios.post('/api/pins', newLoc)
         .then((res) => {
@@ -133,7 +135,7 @@ function App() {
           <>
             <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
               <Room
-                style={{ fontSize: viewState.zoom * 7, color: p.username === currentUser ? 'crimson' : 'gray', cursor: 'pointer' }}
+                style={{ fontSize: viewState.zoom * 7, color: p.visited === 'visited' ? 'crimson' : 'slateblue', cursor: 'pointer' }}
                 onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
               />
             </Marker>
@@ -247,6 +249,12 @@ function App() {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+              </select>
+              <label>Visited ?</label>
+              <select onChange={(e) => setVisited(e.target.value)}>
+                <option value="null"></option>
+                <option value="visited">Visited</option>
+                <option value="wishlist">Wishlist</option>
               </select>
               <button className="submitButton" type="submit">Add Pin</button>
               {notLogged && <span className="notLogged">You are not logged in!</span>}

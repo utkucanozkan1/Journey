@@ -29,6 +29,10 @@ const PinSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
+  visited: {
+    type: String,
+    require: true,
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Pin', PinSchema);
