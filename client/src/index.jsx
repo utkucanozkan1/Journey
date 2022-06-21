@@ -128,14 +128,14 @@ function App() {
         {...viewState}
         mapboxAccessToken={config.TOKEN}
         onMove={(evt) => setViewState(evt.viewState)}
-        mapStyle="mapbox://styles/mapbox/outdoors-v11"
+        mapStyle="mapbox://styles/mapbox/streets-v11"
         onDblClick={handleAddClick}
       >
         {logged ? userPins.map((p) => (
           <>
             <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
               <Room
-                style={{ fontSize: viewState.zoom * 7, color: p.visited === 'visited' ? 'darkgreen' : 'red', cursor: 'pointer' }}
+                style={{ fontSize: viewState.zoom * 7, color: p.visited === 'visited' ? 'crimson' : '#3234f4', cursor: 'pointer' }}
                 onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
               />
             </Marker>
@@ -266,6 +266,8 @@ function App() {
         </Popup>
         )}
       </Map>
+      <div className="dialog">
+          <img src="journey-logo-black-and-white.png" className="logo-div-image"/>
       {showRegister && <Register setShowRegister={setShowRegister} />}
       {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} pins={pins} setUserPins={setUserPins} />}
       {currentUser ? (<button type="button" className="button logout" onClick={(e) => handleLogoutClick(e)}>Logout</button>) : (
@@ -274,6 +276,7 @@ function App() {
           <button type="button" className="button register" onClick={() => setShowRegister(true)}>Register</button>
         </div>
       )}
+      </div>
     </div>
   );
 }

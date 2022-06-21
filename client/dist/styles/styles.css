@@ -127,7 +127,7 @@ input::placeholder, textarea::placeholder{
   top: 0;
   bottom: 0;
   left: 40vw;
-  margin: auto;
+  margin-top: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -184,7 +184,7 @@ input::placeholder, textarea::placeholder{
   top: 0;
   bottom: 0;
   left: 40vw;
-  margin: auto;
+  margin-top: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,4 +235,20 @@ input::placeholder, textarea::placeholder{
 
 .deleteBtn:hover{
   background-color: palevioletred;
+}
+
+.dialog {
+  background-color: rgba(8, 1, 1, 0.6);
+  width: 100%;
+  height: 8vh;
+  position: absolute;
+  top:0.1px;
+}
+
+.logo-div-image{
+  height: 8vh;
+  width: 4vw;
+  margin-left: 50vw;
+  background-color: lemonchiffon;
+  border-radius: 40px;
 }
