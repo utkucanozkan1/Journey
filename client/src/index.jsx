@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 import axios from 'axios';
 import moment from 'moment';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Room, Star } from '@material-ui/icons';
+import { Room, Star, Cancel } from '@material-ui/icons';
 import Register from './Register';
 import Login from './Login';
 
@@ -135,7 +135,7 @@ function App() {
           <>
             <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
               <Room
-                style={{ fontSize: viewState.zoom * 7, color: p.visited === 'visited' ? 'crimson' : 'slateblue', cursor: 'pointer' }}
+                style={{ fontSize: viewState.zoom * 7, color: p.visited === 'visited' ? 'darkgreen' : 'red', cursor: 'pointer' }}
                 onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
               />
             </Marker>
@@ -173,6 +173,7 @@ function App() {
                   </button>
                   {notLogged && <span className="notLogged">Login as the owner of this Pin to Delete!</span>}
                 </div>
+                <Cancel className="loginCancel" onClick={() => setCurrentPlaceId(null)} />
               </Popup>
             ) : null}
           </>
@@ -218,6 +219,7 @@ function App() {
                   </button>
                   {notLogged && <span className="notLogged">Login as the owner of this Pin to Delete!</span>}
                 </div>
+                <Cancel className="loginCancel" onClick={() => setCurrentPlaceId(null)} />
               </Popup>
             ) : null}
           </>
@@ -259,6 +261,7 @@ function App() {
               <button className="submitButton" type="submit">Add Pin</button>
               {notLogged && <span className="notLogged">You are not logged in!</span>}
             </form>
+            <Cancel className="loginCancel" onClick={() => setNewPin(null)} />
           </div>
         </Popup>
         )}
