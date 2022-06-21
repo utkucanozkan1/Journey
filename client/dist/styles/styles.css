@@ -51,7 +51,7 @@ font-size: 14px;
 
 form{
  width: 250px;
- height: 250px;
+ height: 300px;
  display: flex;
  flex-direction: column;
  justify-content: space-between;
@@ -82,8 +82,10 @@ input::placeholder, textarea::placeholder{
   padding: 5px;
   border-radius: 5px;
   color: white;
-  background-color: crimson;
+  margin-top: 10px;
   cursor: pointer;
+  background-image: linear-gradient(to right, #ed6ea0, #ec8c69, #f7186a , #FBB03B);
+  box-shadow: 0 4px 15px 0 rgba(236, 116, 149, 0.75);
 }
 
 .button{
@@ -103,12 +105,29 @@ input::placeholder, textarea::placeholder{
   font-size: 17px;
   padding: 5px;
   margin-right: 10px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(to right, #25aae1, #40e495);
+  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
+.login:hover {
+  background-position: 100% 0;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.login:focus{
+  outline: none;
 }
 
 .register{
   background-color: rgb(87, 192, 241);
   font-size: 17px;
   padding: 5px;
+  background-image: linear-gradient(to right, #667eea, #764ba2);
+  box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
 }
 
 .buttons,.logout{
@@ -207,7 +226,6 @@ input::placeholder, textarea::placeholder{
   cursor: pointer;
 }
 
-
 .failure {
   color: red;
   font-size: 17px;
@@ -231,6 +249,8 @@ input::placeholder, textarea::placeholder{
   color: white;
   background-color: red;
   cursor: pointer;
+  background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
+  box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
 }
 
 .deleteBtn:hover{
@@ -251,4 +271,26 @@ input::placeholder, textarea::placeholder{
   margin-left: 50vw;
   background-color: lemonchiffon;
   border-radius: 40px;
+}
+
+.box {
+  position: absolute;
+  top: 50%;
+  left: 4%;
+  transform: translate(-50%, -50%);
+  background-color: darkblue;
+  color: white;
+  font-size: 15px;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #25aae1, #4481eb);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.mapStyle{
+  position: absolute;
+  left: 1.5%;
+  font-weight: 700;
+  color: lemonchiffon;
+  border-bottom: none;
+  font-style: italic;
 }

@@ -29,6 +29,7 @@ function App() {
   const [desc, setDesc] = useState(null);
   const [rating, setRating] = useState(0);
   const [visited, setVisited] = useState(null);
+  const [mapStyle, setMapStyle] = useState('mapbox://styles/mapbox/streets-v11');
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [logged, setLogged] = useState(false);
@@ -128,7 +129,7 @@ function App() {
         {...viewState}
         mapboxAccessToken={config.TOKEN}
         onMove={(evt) => setViewState(evt.viewState)}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
+        mapStyle={mapStyle}
         onDblClick={handleAddClick}
       >
         {logged ? userPins.map((p) => (
@@ -254,7 +255,7 @@ function App() {
               </select>
               <label>Visited ?</label>
               <select onChange={(e) => setVisited(e.target.value)}>
-                <option value="null"></option>
+                <option value="null" />
                 <option value="visited">Visited</option>
                 <option value="wishlist">Wishlist</option>
               </select>
@@ -267,15 +268,20 @@ function App() {
         )}
       </Map>
       <div className="dialog">
-          <img src="journey-logo-black-and-white.png" className="logo-div-image"/>
-      {showRegister && <Register setShowRegister={setShowRegister} />}
-      {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} pins={pins} setUserPins={setUserPins} />}
-      {currentUser ? (<button type="button" className="button logout" onClick={(e) => handleLogoutClick(e)}>Logout</button>) : (
-        <div className="buttons">
-          <button type="button" className="button login" onClick={() => setShowLogin(true)}>Login</button>
-          <button type="button" className="button register" onClick={() => setShowRegister(true)}>Register</button>
-        </div>
-      )}
+        <select className="box" onChange={(e) => setMapStyle(e.target.value)}>
+          <option value="mapbox://styles/mapbox/streets-v11">Streets</option>
+          <option value="mapbox://styles/mapbox/satellite-streets-v11">Satellite</option>
+          <option value="mapbox://styles/mapbox/navigation-night-v1">Dark Mode</option>
+        </select>
+        <img src="journey-logo-black-and-white.png" className="logo-div-image" />
+        {showRegister && <Register setShowRegister={setShowRegister} />}
+        {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} pins={pins} setUserPins={setUserPins} />}
+        {currentUser ? (<button type="button" className="button logout" onClick={(e) => handleLogoutClick(e)}>Logout</button>) : (
+          <div className="buttons">
+            <button type="button" className="button login" onClick={() => setShowLogin(true)}>Login</button>
+            <button type="button" className="button register" onClick={() => setShowRegister(true)}>Register</button>
+          </div>
+        )}
       </div>
     </div>
   );
