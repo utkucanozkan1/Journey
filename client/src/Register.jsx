@@ -31,8 +31,7 @@ export default function Register({setShowRegister}) {
   return (
     <div className="registerContainer">
       <div className="logo">
-        <Room />
-        Journey
+      <img src="journey-logo-black-and-white.png" className="logo-div-image-login" />
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input type="text" placeholder="username" ref={nameRef} />

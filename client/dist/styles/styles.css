@@ -157,10 +157,11 @@ input::placeholder, textarea::placeholder{
 /* REGISTER Styling  */
 .registerContainer{
   width: 300px;
-  height: 250px;
+  height: 350px;
   padding: 20px;
   border-radius: 10px;
-  background-color: white;
+  background-image: linear-gradient(to bottom, lemonchiffon, aliceblue);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -183,9 +184,12 @@ input::placeholder, textarea::placeholder{
   border: none;
   padding: 5px;
   border-radius: 5px;
+  font-size: 17px;
   color: white;
-  background-color: rgb(87, 192, 241);
+  background-color: darkgreen;
   cursor: pointer;
+  background-image: linear-gradient(to right, #667eea, #764ba2);
+  box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
 }
 
 .success {
