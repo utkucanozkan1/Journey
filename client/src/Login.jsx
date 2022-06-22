@@ -40,8 +40,7 @@ export default function Login({ setShowLogin, setCurrentUser , setLogged, setNot
   return (
     <div className="loginContainer">
       <div className="logo">
-        <Room />
-        Journey
+      <img src="journey-logo-black-and-white.png" className="logo-div-image-login" />
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input type="text" placeholder="username" ref={nameRef} />

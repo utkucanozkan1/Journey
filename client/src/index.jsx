@@ -34,6 +34,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [logged, setLogged] = useState(false);
   const [notLogged, setNotLogged] = useState(false);
+  const [wishList, setWishList] = useState(false);
 
   useEffect(() => {
     const getPins = async () => {
@@ -78,6 +79,7 @@ function App() {
     setCurrentUser(null);
     setLogged(false);
     setNotLogged(false);
+    setWishList(false);
     setUserPins([]);
   };
   const handleDeleteClick = (event, username, title) => {
@@ -132,6 +134,26 @@ function App() {
         mapStyle={mapStyle}
         onDblClick={handleAddClick}
       >
+        {wishList && (
+        <div className="wishlist">
+          {userPins.map((p) => (
+            p.visited === 'wishlist' && (
+            <div>
+              <div className="wishes">
+                <Room
+                  style={{ color: '#3234f4', cursor: 'pointer' }}
+                  onClick={(event) => handleMarkerClick(p._id, event, p.lat, p.long)}
+                />
+                <span>{p.title}</span>
+                <a href="https://www.expedia.com" target="_blank" rel="noreferrer">
+                  <button type="button" className="bookBtn">Book</button>
+                </a>
+              </div>
+            </div>
+            )
+          ))}
+        </div>
+        )}
         {logged ? userPins.map((p) => (
           <>
             <Marker longitude={p.long} latitude={p.lat} offsetLeft={-viewState.zoom * 3.5} offsetTop={-viewState.zoom * 7}>
@@ -273,6 +295,8 @@ function App() {
           <option value="mapbox://styles/mapbox/satellite-streets-v11">Satellite</option>
           <option value="mapbox://styles/mapbox/navigation-night-v1">Dark Mode</option>
         </select>
+        {logged && !wishList && <button type="button" className="wishBtn" onClick={() => setWishList(true)}>Travel Wishlist</button>}
+        {wishList && <button type="button" className="wishBtnClose" onClick={() => setWishList(false)}>Close Wishlist</button>}
         <img src="journey-logo-black-and-white.png" className="logo-div-image" />
         {showRegister && <Register setShowRegister={setShowRegister} />}
         {showLogin && <Login setShowLogin={setShowLogin} setCurrentUser={setCurrentUser} setLogged={setLogged} setNotLogged={setNotLogged} pins={pins} setUserPins={setUserPins} />}
