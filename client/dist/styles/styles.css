@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: rgba(0, 0, 0, 0.384);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(248, 240, 240, 0.441);
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: 0px 1px 2px rgba(248, 240, 240, 0.75);
+}
+::-webkit-scrollbar-corner {
+  background: #000;
+}
+
 .map-div {
   position: absolute;
   top: 0;
@@ -59,16 +75,16 @@ form{
 
 input{
   border: none;
-  border-bottom: 1px solid gray;
+  border-radius: 5px;
 }
 
 textarea{
-  border-bottom: 1px solid gray;
+  border-radius: 5px;
 }
 
 input::placeholder, textarea::placeholder{
   font-size:12px;
-  color: rgb(145, 98, 117);
+  color: rgba(7, 5, 6, 0.751);
 }
 
 .notLogged{
@@ -97,7 +113,12 @@ input::placeholder, textarea::placeholder{
 }
 
 .logout{
-  background-color: red;
+  font-size: 17px;
+  padding: 5px;
+  margin-right: 10px;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
 }
 
 .login{
@@ -105,8 +126,6 @@ input::placeholder, textarea::placeholder{
   font-size: 17px;
   padding: 5px;
   margin-right: 10px;
-  moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
   -webkit-transition: all .4s ease-in-out;
   transition: all .4s ease-in-out;
   background-image: linear-gradient(to right, #25aae1, #40e495);
@@ -138,10 +157,11 @@ input::placeholder, textarea::placeholder{
 /* REGISTER Styling  */
 .registerContainer{
   width: 300px;
-  height: 250px;
+  height: 350px;
   padding: 20px;
   border-radius: 10px;
-  background-color: white;
+  background-image: linear-gradient(to bottom, lemonchiffon, aliceblue);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -164,9 +184,12 @@ input::placeholder, textarea::placeholder{
   border: none;
   padding: 5px;
   border-radius: 5px;
+  font-size: 17px;
   color: white;
-  background-color: rgb(87, 192, 241);
+  background-color: darkgreen;
   cursor: pointer;
+  background-image: linear-gradient(to right, #667eea, #764ba2);
+  box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
 }
 
 .success {
@@ -195,10 +218,11 @@ input::placeholder, textarea::placeholder{
 /* LOGIN Styling  */
 .loginContainer{
   width: 300px;
-  height: 250px;
+  height: 350px;
   padding: 20px;
   border-radius: 10px;
-  background-color: white;
+  background-image: linear-gradient(to bottom, lemonchiffon, aliceblue);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -221,9 +245,12 @@ input::placeholder, textarea::placeholder{
   border: none;
   padding: 5px;
   border-radius: 5px;
+  font-size: 17px;
   color: white;
   background-color: darkgreen;
   cursor: pointer;
+  background-image: linear-gradient(to right, #25aae1, #40e495);
+  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
 }
 
 .failure {
@@ -249,8 +276,7 @@ input::placeholder, textarea::placeholder{
   color: white;
   background-color: red;
   cursor: pointer;
-  background-image: linear-gradient(to right, #fc6076, #ff9a44, #ef9d43, #e75516);
-  box-shadow: 0 4px 15px 0 rgba(252, 104, 110, 0.75);
+  background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
 }
 
 .deleteBtn:hover{
@@ -267,8 +293,7 @@ input::placeholder, textarea::placeholder{
 
 .logo-div-image{
   height: 8vh;
-  width: 4vw;
-  margin-left: 50vw;
+  margin-left: 47.5vw;
   background-color: lemonchiffon;
   border-radius: 40px;
 }
@@ -284,6 +309,7 @@ input::placeholder, textarea::placeholder{
   border-radius: 10px;
   background-image: linear-gradient(to right, #25aae1, #4481eb);
   box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  cursor: pointer;
 }
 
 .mapStyle{
@@ -293,4 +319,78 @@ input::placeholder, textarea::placeholder{
   color: lemonchiffon;
   border-bottom: none;
   font-style: italic;
+}
+
+.wishlist{
+  width: 300px;
+  height: 250px;
+  padding: 20px;
+  border-radius: 2px;
+  background-color: rgba(8, 1, 1, 0.6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin-top: 8.05vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y:scroll !important;
+}
+
+.wishBtn{
+  position: absolute;
+  top: 50%;
+  right: 82%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 15px;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #88c6e1, #4481eb);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  cursor: pointer;
+  border: none;
+}
+
+.wishBtnClose{
+  position: absolute;
+  top: 50%;
+  right: 85%;
+  transform: translate(-50%, -50%);
+  color: linear-gradient(to right, #88c6e1, #4481eb);
+  font-size: 15px;
+  border-radius: 10px;
+  background-image: white;
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  cursor: pointer;
+  border: none;
+}
+
+.wishes{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top:1vh;
+  margin-bottom:2vh;
+  background-image: linear-gradient(to right, aliceblue, lemonchiffon);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  border-radius: 10px;
+  font-size: large;
+}
+
+.bookBtn{
+  color: white;
+  font-size: 13px;
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #88c6e1, #4481eb);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+  cursor: pointer;
+  border: none;
+}
+
+.logo-div-image-login{
+  height: 12vh;
+  bottom:2vh;
+  position: relative;
+  background-color: lemonchiffon;
+  border-radius: 40px;
 }
