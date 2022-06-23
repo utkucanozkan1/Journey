@@ -28,6 +28,28 @@ export default function Register({setShowRegister}) {
     }
   };
 
+  const handleKeyPress = async (e) => {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const newUser = {
+        username: nameRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      };
+      try {
+        await axios.post('/api/users/register', newUser);
+        setFail(false);
+        setSuccess(true);
+        setTimeout(() => {
+          setShowRegister(false);
+        }, 2500);
+      } catch (err) {
+        setFail(true);
+      }
+    }
+  };
+
   return (
     <div className="registerContainer">
       <div className="logo">
@@ -37,7 +59,7 @@ export default function Register({setShowRegister}) {
         <input type="text" placeholder="username" ref={nameRef} />
         <input type="email" placeholder="email" ref={emailRef} />
         <input type="password" placeholder="password" ref={passwordRef} />
-        <button className="registerBtn">Register</button>
+        <button onKeyPress={(e) => handleKeyPress(e)} className="registerBtn">Register</button>
         {success && <span className="success"> Success! You can now Login! </span>}
         {fail && <span className="failure"> Something went wrong! </span>}
       </form>
