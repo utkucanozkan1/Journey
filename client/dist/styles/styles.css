@@ -340,7 +340,7 @@ input::placeholder, textarea::placeholder{
 .wishBtn{
   position: absolute;
   top: 50%;
-  right: 85%;
+  right: 82%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 15px;
