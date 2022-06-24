@@ -4,7 +4,7 @@
 
 A MERN stack ,  travel-map/journal application that enables users to keep track of travel destinations and utilizes note taking.
 
-Upon entry to the web application , users can register for a new account and login with their credentials to get begin their "Journey".
+Upon entry to the web application , users can register for a new account and login with their credentials to begin their "Journey".
 
 Users can pin cities , towns or even specific locations in the world map. The users can also choose between 3 map options, "street view" , "satellite" and "dark mode".
 
