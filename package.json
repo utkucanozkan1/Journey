@@ -44,6 +44,7 @@
     "build": "webpack --watch --mode=production",
     "client-dev": "webpack --watch --mode=development",
     "server-dev": "nodemon --watch server server/index.js",
+    "server": "node server/index.js",
     "sass-utz": "sass client/dist/styles/styles-utku.scss client/dist/styles/styles-utku.css --watch"
   }
 }
