@@ -1,5 +1,6 @@
 
 # Journey
+![Frame 2](https://user-images.githubusercontent.com/98296753/175451764-28dfe1cd-f994-4664-a60c-ab42759171e0.png)
 
 A MERN stack ,  travel-map/journal application that enables users to keep track of travel destinations and utilizes note taking.
 
